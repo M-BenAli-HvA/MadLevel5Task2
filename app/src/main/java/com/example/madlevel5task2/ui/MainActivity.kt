@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.madlevel5task2.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,11 +20,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
-
         navController = findNavController(R.id.nav_host_fragment)
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            navController.navigate(R.id.action_GameBacklogFragment_to_AddGameFragment)
-        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

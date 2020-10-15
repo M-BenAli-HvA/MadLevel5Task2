@@ -12,7 +12,7 @@ import com.example.madlevel5task2.ui.GameBacklogFragment
 interface GameDao {
 
     @Query("SELECT * FROM GameBacklogTable")
-    fun getAllGames(): LiveData<Game?>
+    fun getAllGames(): LiveData<List<Game>>
 
     @Insert
     suspend fun addGame(game: Game)

@@ -1,18 +1,19 @@
 package com.example.madlevel5task2.ui
 
-import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
-import android.util.LayoutDirection
-import android.util.LayoutDirection.RTL
 import android.view.*
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import android.widget.Button
-import android.widget.Toast
-import android.widget.Toolbar
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.madlevel5task2.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.madlevel5task2.models.Game
+import com.example.madlevel5task2.viewmodels.GameViewModel
+import kotlinx.android.synthetic.main.fragment_add_game.*
+import java.time.LocalDate
+import java.util.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class AddGameFragment : Fragment() {
 
     private lateinit var navController: NavController
+    private val viewModel: GameViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,7 @@ class AddGameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = findNavController()
         setHasOptionsMenu(true)
+        initViews()
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -52,6 +55,22 @@ class AddGameFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initViews() {
+        fab_save_game.setOnClickListener {
+            viewModel.addGame(createGame())
+            navController.popBackStack()
+        }
+    }
+
+    private fun createGame(): Game {
+        val gameTitle = et_game_title.text.toString()
+        val gamePlatforms = et_game_platforms.text.toString()
+        val gameDate =  Date((et_game_date_year.text.toString().toInt()-1900),
+            et_game_date_month.text.toString().toInt()-1,
+            et_game_date_day.text.toString().toInt())
+        return Game(gameTitle, gamePlatforms, gameDate)
     }
 
 
